@@ -35,10 +35,6 @@ function addList(e) {
 
     //alert
   } else if (input.value && edit) {
-    editElement =
-      e.currentTarget.nextElementSibling.firstElementChild.firstElementChild
-        .firstElementChild;
-    editElement.innerHTML = input.value;
     editToLocalStorage(editId, input.value);
     resetItems();
     alertMessage("Value Changed", "alert-success");
@@ -59,7 +55,7 @@ function alertMessage(message, color) {
   setTimeout(() => {
     alert.innerHTML = "";
     alert.classList.remove(color);
-  }, 2000);
+  }, 1000);
 }
 
 function createList(groceryItem) {
@@ -87,7 +83,9 @@ function createList(groceryItem) {
 
 //edit item
 function editItem(id, item) {
-  input.value = item;
+  console.log(id, item, items);
+  editElement = item;
+  input.value = editElement;
   editId = id;
   edit = true;
   submitBtn.innerHTML = "Edit";
@@ -130,11 +128,12 @@ function addToLocalStorage() {
 
 // edit Local Storage
 function editToLocalStorage(id, value) {
-  items = items.map((item) => {
-    if (item.id === id) {
-      item.item = value;
+  // console.log(id, value);
+  items = items.map((i) => {
+    if (i.id == id) {
+      i.item = value;
     }
-    return item;
+    return i;
   });
 
   addToLocalStorage(items);
